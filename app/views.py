@@ -14,27 +14,17 @@ from .models import Comment # использование модели комме
 from .forms import CommentForm # использование формы ввода комментария
 from .forms import BlogForm
 
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-
 def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
-    post_all = Blog.objects.all() # запрос на выбор всех статей блога из модели
-    post = Paginator(post_all, 5)
-    page = request.GET.get('page')
-    try:
-        posts = post.page(page)
-    except PageNotAnInteger:
-        posts = post.page(1)
-    except EmptyPage:
-        posts = post.page(post.num_pages)
+    posts = Blog.objects.all() # запрос на выбор всех статей блога из модели
+
 
     return render(
         request,
         'app/index.html',
         {
             'posts': posts, # педача списка статей в шаблон веб-страницы
-            'postCount': post_all.count,
         }
 
     )
