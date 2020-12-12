@@ -48,3 +48,32 @@ class Comment(models.Model):
         ordering = ["-date"] 
 
 admin.site.register(Comment) 
+
+class Zakaz(models.Model):
+    THEM_CHOICES = (
+        ('1', 'Создать файл'),
+        ('2', 'Найти файл'),
+        ('3', 'Поделиться файлом'),
+    )
+    STATUS_CHOICES = (
+        ('1', 'В ожидании'), 
+        ('2', 'Выполнено'),
+        ('3', 'Отказ'),
+    )
+
+    them = models.CharField(max_length=1, choices=THEM_CHOICES)
+    text = models.TextField(verbose_name = "Подробнее о файле",)
+    date = models.DateTimeField(default = datetime.now(), db_index = True, verbose_name = "Дата")
+    author = models.ForeignKey(User, on_delete = models.CASCADE, verbose_name = "Автор")
+    status = models.CharField(default = '1', max_length=1, choices=STATUS_CHOICES)
+
+    def __str__(self):
+        return 'Заказ {} №{}'.format(self.author, self.id)
+
+    class Meta:
+        db_table = "Zakaz" 
+        verbose_name = "Заказ" 
+        verbose_name_plural = "Заказы"
+        ordering = ["-date"] 
+
+admin.site.register(Zakaz) 

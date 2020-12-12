@@ -36,6 +36,7 @@ urlpatterns = [
     url(r'^(?P<parametr>\d+)/$', views.blogpost, name='blogpost'),
     path('newpost/', views.newpost, name='newpost'),
     path('videopost/', views.videopost, name='videopost'),
+    path('newzakaz/', views.newzakaz, name='newzakaz'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

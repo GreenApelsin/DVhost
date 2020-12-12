@@ -1,0 +1,33 @@
+﻿{% extends "app/layout.html" %}
+
+{% block content %}
+<h3>Заказы</h3><br>
+<form method="POST" enctype="multipart/form-data" class="formpostnew">{% csrf_token %} {# защита от атак CSRF#}
+    <div>
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-success" style="float: right;"> Добавить </button>
+    </div>
+</form>
+<div class="table-block">
+    <table>
+        <tr><th>Номер</th><th>Тип</th><th>Описание</th><th>Статус</th></tr> 
+        {% for zak in all_zakaz %}
+        <tr>
+            <td class="td-name">
+                <div>{{zak.id}}</div>
+            </td>
+            <td class="td-name">
+                <div>{{zak.get_them_display|lower}}</div>
+            </td>
+            <td class="td-name">
+                <div>{{zak.text}}</div>
+            </td>
+            <td class="td-name">
+                <div>{{zak.get_status_display|lower}}</div>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}

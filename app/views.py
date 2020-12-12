@@ -11,8 +11,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.db import models
 from .models import Blog
 from .models import Comment # использование модели комментариев
+from .models import Zakaz
 from .forms import CommentForm # использование формы ввода комментария
 from .forms import BlogForm
+from .forms import ZakazForm
 
 def home(request):
     """Renders the home page."""
@@ -163,4 +165,28 @@ def videopost(request):
     return render(
         request,
         'app/videopost.html',
+    )
+
+def newzakaz(request):
+    """Renders the blogpost page."""
+    assert isinstance(request, HttpRequest)
+    all_zakaz = Zakaz.objects.filter(author=request.user)
+    if request.method == "POST": # после отправки данных формы на сервер методом POST
+        form = ZakazForm(request.POST)
+        zakaz_f = form.save(commit=False)
+        zakaz_f.posted = datetime.now()
+        zakaz_f.author = request.user
+        zakaz_f.save()
+        return redirect('newzakaz')
+    else:
+        form = ZakazForm() # создание формы для ввода комментария
+
+    return render(
+        request,
+        'app/newzakaz.html',
+        {
+            'all_zakaz': all_zakaz, 
+            'form': form, # передача формы добавления комментария в шаблон веб-страницы
+            'year':datetime.now().year,
+        }
     )

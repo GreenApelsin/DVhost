@@ -32,7 +32,10 @@
                     <li><a href="{% url 'about' %}">О нас</a></li>
                     <li><a href="{% url 'contact' %}">Контакты</a></li>
                     <li><a href="{% url 'feedback' %}">Обратная связь</a></li>
+                    {% if request.user.is_authenticated %}
                     <li><a href="{% url 'newpost' %}">Добавить файл</a></li>
+                    <li><a href="{% url 'newzakaz' %}">Заказы</a></li>
+                    {% endif %}
                     <li><a href="{% url 'videopost' %}">Видео</a></li>
                 </ul>
 
@@ -40,7 +43,7 @@
             </div>
         </div>
     </div>
-            <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="2000" style="width: 500px; margin: 0 auto 30px auto;">
+            <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="2000" style="max-width: 500px; margin: 0 auto 30px auto;">
             <ol class="carousel-indicators">
                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                 <li data-target="#myCarousel" data-slide-to="1"></li>

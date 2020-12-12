@@ -9,6 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from .models import Comment
 from .models import Blog
+from .models import Zakaz
 
 class BootstrapAuthenticationForm(AuthenticationForm):
     """Authentication form which uses boostrap CSS."""
@@ -47,3 +48,9 @@ class BlogForm(forms.ModelForm):
         model = Blog
         fields = ('title', 'description', 'content', 'file',)
         labels = {'title': "Имя файла", 'description': "Расширение", 'content': "Описание", 'file': "Файл"}
+
+class ZakazForm(forms.ModelForm):
+    class Meta:
+        model = Zakaz
+        fields = ('them', 'text',)
+        labels = {'them': "Нужно", 'text': "О файле",}
