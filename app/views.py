@@ -142,10 +142,11 @@ def newpost(request):
         blogform = BlogForm(request.POST, request.FILES)
         if blogform.is_valid():
             blog_f = blogform.save(commit=False)
+            str1 = str(request.FILES['file'].name)
+            blog_f.description = str1[len(str1) - str1.rfind(".") - 1 :]
             blog_f.posted = datetime.now()
             blog_f.author = request.user
             blog_f.save()
-
             return redirect('home')
     else:
         blogform = BlogForm()

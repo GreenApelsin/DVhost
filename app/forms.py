@@ -46,8 +46,8 @@ class CommentForm (forms.ModelForm):
 class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
-        fields = ('title', 'description', 'content', 'file',)
-        labels = {'title': "Имя файла", 'description': "Расширение", 'content': "Описание", 'file': "Файл"}
+        fields = ('title', 'content', 'file',)
+        labels = {'title': "Имя файла", 'content': "Описание", 'file': "Файл"}
 
 class ZakazForm(forms.ModelForm):
     class Meta:
